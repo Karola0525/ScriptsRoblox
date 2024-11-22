@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Script Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .script-text {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            margin-top: 10px;
+            color: #4CAF50;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="container">
+            <div class="script-text">
+                console.log('Hello, world!');
+            </div>
+            <button class="copy-btn">Copy Script</button>
+            <p class="status"></p>
+        </div>
+
+        <div class="container">
+            <div class="script-text">
+                alert('This is a test message!');
+            </div>
+            <button class="copy-btn">Copy Script</button>
+            <p class="status"></p>
+        </div>
+
+        <div class="container">
+            <div class="script-text">
+                document.getElementById('example').innerHTML = 'Dynamic content!';
+            </div>
+            <button class="copy-btn">Copy Script</button>
+            <p class="status"></p>
+        </div>
+
+        <div class="container">
+            <div class="script-text">
+                fetch('https://api.example.com/data').then(response => response.json());
+            </div>
+            <button class="copy-btn">Copy Script</button>
+            <p class="status"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle copying text
+        function copyScript(button) {
+            // Get the script text associated with the clicked button
+            const container = button.parentElement;
+            const scriptContent = container.querySelector('.script-text').textContent;
+
+            // Create a temporary textarea to copy the content
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = scriptContent;
+            document.body.appendChild(tempTextarea);
+
+            // Select and copy the content
+            tempTextarea.select();
+            document.execCommand('copy');
+
+            // Remove the temporary textarea
+            document.body.removeChild(tempTextarea);
+
+            // Show a status message
+            const status = container.querySelector('.status');
+            status.textContent = 'Script copied!';
+            setTimeout(() => {
+                status.textContent = '';
+            }, 2000);
+        }
+
+        // Add event listeners to all buttons
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => copyScript(button));
+        });
+    </script>
+</body>
+</html>
