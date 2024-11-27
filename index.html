@@ -60,7 +60,14 @@
     <div class="grid-container">
         <div class="container">
             <div class="script-text">
-                console.log('Hello, world!');
+                local block = script.Parent
+
+block.BrickColor = BrickColor.Blue()
+wait(4)
+local fire = Instance.new('Fire',block)
+fire.Color = Color3.new(0, 0, 10) -- el color de la llama
+fire.Size = 15 -- el tamaño de la llama
+fire.Heat = 5 -- la altura de la llama;
             </div>
             <button class="copy-btn">Copy Script</button>
             <p class="status"></p>
