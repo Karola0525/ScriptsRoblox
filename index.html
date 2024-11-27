@@ -60,7 +60,7 @@
     <div class="grid-container">
         
         <div class="container">
-            <text>hola</text>
+            <text>Crear una pieza con fuego</text>
             <div class="script-text">
                 local block = script.Parent
 
@@ -76,24 +76,69 @@ fire.Heat = 5 -- la altura de la llama;
         </div>
 
         <div class="container">
+            <text>Cambiar color aleatorio</text>
             <div class="script-text">
-                alert('This is a test message!');
+                local bloque = script.Parent
+
+function cambiaColor()
+    bloque.BrickColor = BrickColor.Random()
+end
+
+bloque.Touched:Connect(cambiaColor);
             </div>
             <button class="copy-btn">Copy Script</button>
             <p class="status"></p>
         </div>
 
         <div class="container">
+             <text>Plataforma que desaparece</text>
             <div class="script-text">
-                document.getElementById('example').innerHTML = 'Dynamic content!';
+                local block = script.Parent
+
+function Collision ()
+    block.CanTouch = false
+    block.Transparency = 0.2
+    wait(0.4)
+    block.Transparency = 0.8
+    wait(0.4)
+    block.CanCollide = false
+    wait(1)
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision);
             </div>
             <button class="copy-btn">Copy Script</button>
             <p class="status"></p>
         </div>
 
         <div class="container">
+            <text>Pared que te lleva fuera del laberinto</text>
             <div class="script-text">
-                fetch('https://api.example.com/data').then(response => response.json());
+                local block = script.Parent
+
+function Collision ()
+    block.CanTouch = false
+    local light = Instance.new('PointLight',block)
+    block.Transparency = 0.9
+    light.Color = Color3.new(1, 0, 0)
+    light.Range = 15
+    light.Brightness = 10
+    wait(0.5)
+    block.CanCollide = false
+    light.Color = Color3.new(0, 1, 0)
+    light.Range = 25
+    light.Brightness = 20
+    wait(2)
+    light:Destroy()
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision));
             </div>
             <button class="copy-btn">Copy Script</button>
             <p class="status"></p>
