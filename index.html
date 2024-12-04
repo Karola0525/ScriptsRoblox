@@ -55,26 +55,9 @@
             color: #4CAF50;
             font-size: 0.9em;
         }
-
-        #add-container-btn {
-            margin: 20px 0;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #add-container-btn:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <!-- Botón principal para agregar contenedores -->
-    <button id="add-container-btn">Agregar Nuevo Contenedor</button>
-
     <!-- Contenedor principal que aloja todos los contenedores -->
     <div class="grid-container">
         <!-- Contenedor de ejemplo inicial -->
@@ -120,26 +103,6 @@
             }, 2000);
         }
 
-        // Función para agregar un nuevo contenedor dinámicamente
-        function addNewContainer() {
-            const gridContainer = document.querySelector('.grid-container');
-
-            // Crear un nuevo contenedor con un script y botón
-            const newContainer = document.createElement('div');
-            newContainer.classList.add('container');
-            newContainer.innerHTML = `
-                <div class="script-text">
-                    -- Este es un nuevo script añadido dinámicamente
-                    print("Nuevo contenedor dinámico.")
-                </div>
-                <button class="copy-btn">Copiar Script</button>
-                <p class="status"></p>
-            `;
-
-            gridContainer.appendChild(newContainer);
-            attachButtonEvents(); // Asegura que los nuevos botones tengan eventos
-        }
-
         // Asignar eventos a los botones para copiar scripts
         function attachButtonEvents() {
             document.querySelectorAll('.copy-btn').forEach(button => {
@@ -150,9 +113,6 @@
 
         // Inicializar eventos en los contenedores existentes
         attachButtonEvents();
-
-        // Botón para agregar un nuevo contenedor dinámico
-        document.getElementById('add-container-btn').addEventListener('click', addNewContainer);
     </script>
 </body>
 </html>
