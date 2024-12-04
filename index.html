@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Script Manager</title>
+    <title>Administrador de Contenedores de Scripts</title>
     <style>
         /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -34,7 +34,7 @@
         }
 
         .script-text {
-            display: none; /* Los scripts no se muestran al usuario final */
+            display: none; /* El script está oculto */
         }
 
         button {
@@ -72,28 +72,36 @@
     </style>
 </head>
 <body>
-    <!-- Botón para agregar dinámicamente -->
+    <!-- Botón principal para agregar contenedores -->
     <button id="add-container-btn">Agregar Nuevo Contenedor</button>
 
+    <!-- Contenedor principal que aloja todos los contenedores -->
     <div class="grid-container">
-        <!-- Contenedores iniciales ocultos al usuario -->
+        <!-- Contenedor de ejemplo inicial -->
         <div class="container">
             <div class="script-text">
-                local block = script.Parent
-                block.BrickColor = BrickColor.Blue()
-                wait(4)
-                local fire = Instance.new('Fire',block)
-                fire.Color = Color3.new(0, 0, 10) -- el color de la llama
-                fire.Size = 15 -- el tamaño de la llama
-                fire.Heat = 5 -- la altura de la llama
+                -- Este es el script inicial en Lua
+                print("Este es un script de ejemplo.")
             </div>
             <button class="copy-btn">Copiar Script</button>
             <p class="status"></p>
         </div>
+
+        <!-- Aquí puedes agregar nuevos contenedores manualmente -->
+        <!-- EJEMPLO DE NUEVO CONTENEDOR:
+        <div class="container">
+            <div class="script-text">
+                -- Este es un script personalizado en Lua
+                print("Nuevo contenedor añadido manualmente.")
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+        -->
     </div>
 
     <script>
-        // Función para manejar la copia del script
+        // Función para copiar el contenido del script
         function copyScript(button) {
             const container = button.parentElement;
             const scriptContent = container.querySelector('.script-text').textContent;
@@ -116,26 +124,26 @@
         function addNewContainer() {
             const gridContainer = document.querySelector('.grid-container');
 
-            // Creación del nuevo contenedor con un script oculto
+            // Crear un nuevo contenedor con un script y botón
             const newContainer = document.createElement('div');
             newContainer.classList.add('container');
             newContainer.innerHTML = `
                 <div class="script-text">
-                    -- Este es un script nuevo generado dinámicamente
-                    print("Nuevo script añadido dinámicamente")
+                    -- Este es un nuevo script añadido dinámicamente
+                    print("Nuevo contenedor dinámico.")
                 </div>
                 <button class="copy-btn">Copiar Script</button>
                 <p class="status"></p>
             `;
 
             gridContainer.appendChild(newContainer);
-            attachButtonEvents(); // Adjunta los eventos a los botones nuevos
+            attachButtonEvents(); // Asegura que los nuevos botones tengan eventos
         }
 
-        // Agregar eventos a los botones
+        // Asignar eventos a los botones para copiar scripts
         function attachButtonEvents() {
             document.querySelectorAll('.copy-btn').forEach(button => {
-                button.removeEventListener('click', () => copyScript(button)); // Elimina eventos previos
+                button.removeEventListener('click', () => copyScript(button)); // Evitar duplicados
                 button.addEventListener('click', () => copyScript(button));
             });
         }
@@ -143,7 +151,7 @@
         // Inicializar eventos en los contenedores existentes
         attachButtonEvents();
 
-        // Evento para agregar un nuevo contenedor al hacer clic en el botón
+        // Botón para agregar un nuevo contenedor dinámico
         document.getElementById('add-container-btn').addEventListener('click', addNewContainer);
     </script>
 </body>
