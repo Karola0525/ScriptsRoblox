@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador de Contenedores de Scripts</title>
+    <title>Ejemplo de Copiar Script</title>
     <style>
-        /* Estilos generales */
+        /* Estilos generales para el cuerpo de la página */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
+        /* Estilos para el contenedor de la cuadrícula */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -25,6 +26,7 @@
             max-width: 1200px;
         }
 
+        /* Estilos para cada contenedor individual */
         .container {
             background-color: #ffffff;
             padding: 20px;
@@ -33,10 +35,18 @@
             text-align: center;
         }
 
+        /* Estilos para el texto del script */
         .script-text {
-            display: none; /* El script está oculto */
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            white-space: pre-wrap; /* Mantener el formato de saltos de línea */
+            word-wrap: break-word;
         }
 
+        /* Estilos para los botones */
         button {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -46,10 +56,12 @@
             cursor: pointer;
         }
 
+        /* Efecto hover para los botones */
         button:hover {
             background-color: #45a049;
         }
 
+        /* Estilos para los mensajes de estado */
         .status {
             margin-top: 10px;
             color: #4CAF50;
@@ -58,40 +70,91 @@
     </style>
 </head>
 <body>
-    <!-- Contenedor principal que aloja todos los contenedores -->
     <div class="grid-container">
-        <!-- Contenedor de ejemplo inicial -->
+        <!-- Contenedor 1: Crear una pieza con fuego -->
         <div class="container">
+            <text>Crear una pieza con fuego</text>
             <div class="script-text">
-                -- Este es el script inicial en Lua
-                print("Este es un script de ejemplo.")
-            </div>
-            <button class="copy-btn">Copiar Script</button>
-            <p class="status"></p>
-        </div>
-
-        <!-- Aquí puedes agregar nuevos contenedores manualmente -->
-        <!-- EJEMPLO DE NUEVO CONTENEDOR:
-        <div class="container">
-            <div class="script-text">
-                -- Este es un script personalizado en Lua
-                print("Nuevo contenedor añadido manualmente.")
-            </div>
-            <button class="copy-btn">Copiar Script</button>
-            <p class="status"></p>
-        </div>
-        -->
-        <div class="container">
-            <div class="script-text">
-               local block = script.Parent
+                local block = script.Parent
 
 block.BrickColor = BrickColor.Blue()
 wait(4)
-local fire = Instance.new('Fire',block)
+local fire = Instance.new('Fire', block)
 fire.Color = Color3.new(0, 0, 10) -- el color de la llama
 fire.Size = 15 -- el tamaño de la llama
 fire.Heat = 5 -- la altura de la llama
-                print("Nuevo contenedor añadido manualmente.")
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Contenedor 2: Cambiar color aleatorio -->
+        <div class="container">
+            <text>Cambiar color aleatorio</text>
+            <div class="script-text">
+                local bloque = script.Parent
+
+function cambiaColor()
+    bloque.BrickColor = BrickColor.Random()
+end
+
+bloque.Touched:Connect(cambiaColor)
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Contenedor 3: Plataforma que desaparece -->
+        <div class="container">
+            <text>Plataforma que desaparece</text>
+            <div class="script-text">
+                local block = script.Parent
+
+function Collision()
+    block.CanTouch = false
+    block.Transparency = 0.2
+    wait(0.4)
+    block.Transparency = 0.8
+    wait(0.4)
+    block.CanCollide = false
+    wait(1)
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision)
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Contenedor 4: Pared que te lleva fuera del laberinto -->
+        <div class="container">
+            <text>Pared que te lleva fuera del laberinto</text>
+            <div class="script-text">
+                local block = script.Parent
+
+function Collision()
+    block.CanTouch = false
+    local light = Instance.new('PointLight', block)
+    block.Transparency = 0.9
+    light.Color = Color3.new(1, 0, 0)
+    light.Range = 15
+    light.Brightness = 10
+    wait(0.5)
+    block.CanCollide = false
+    light.Color = Color3.new(0, 1, 0)
+    light.Range = 25
+    light.Brightness = 20
+    wait(2)
+    light:Destroy()
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision)
             </div>
             <button class="copy-btn">Copiar Script</button>
             <p class="status"></p>
@@ -99,18 +162,25 @@ fire.Heat = 5 -- la altura de la llama
     </div>
 
     <script>
-        // Función para copiar el contenido del script
+        // Función para manejar la copia del texto
         function copyScript(button) {
+            // Obtener el texto del script asociado con el botón
             const container = button.parentElement;
             const scriptContent = container.querySelector('.script-text').textContent;
 
+            // Crear un área de texto temporal para copiar el contenido
             const tempTextarea = document.createElement('textarea');
             tempTextarea.value = scriptContent;
             document.body.appendChild(tempTextarea);
+
+            // Seleccionar y copiar el contenido
             tempTextarea.select();
             document.execCommand('copy');
+
+            // Eliminar el área de texto temporal
             document.body.removeChild(tempTextarea);
 
+            // Mostrar un mensaje de estado
             const status = container.querySelector('.status');
             status.textContent = '¡Script copiado!';
             setTimeout(() => {
@@ -118,16 +188,10 @@ fire.Heat = 5 -- la altura de la llama
             }, 2000);
         }
 
-        // Asignar eventos a los botones para copiar scripts
-        function attachButtonEvents() {
-            document.querySelectorAll('.copy-btn').forEach(button => {
-                button.removeEventListener('click', () => copyScript(button)); // Evitar duplicados
-                button.addEventListener('click', () => copyScript(button));
-            });
-        }
-
-        // Inicializar eventos en los contenedores existentes
-        attachButtonEvents();
+        // Agregar eventos de clic a todos los botones
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => copyScript(button));
+        });
     </script>
 </body>
 </html>
