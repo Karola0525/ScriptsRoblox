@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copy Script Example</title>
+    <title>Ejemplo de Scripts Copiables</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,7 +58,7 @@
 </head>
 <body>
     <div class="grid-container">
-        <!-- Ejemplo de contenedor existente -->
+        <!-- Contenedor 1 -->
         <div class="container">
             <text>Crear una pieza con fuego</text>
             <div class="script-text">
@@ -71,22 +71,94 @@ fire.Color = Color3.new(0, 0, 10) -- el color de la llama
 fire.Size = 15 -- el tamaño de la llama
 fire.Heat = 5 -- la altura de la llama
             </div>
-            <button class="copy-btn">Copy Script</button>
+            <button class="copy-btn">Copiar Script</button>
             <p class="status"></p>
         </div>
 
-        <!-- Añadir un nuevo contenedor aquí -->
-        <!-- Paso 1: Copia y pega el código de un contenedor existente -->
-        <!-- Paso 2: Cambia el texto, el contenido del script y añade un botón único -->
+        <!-- Contenedor 2 -->
+        <div class="container">
+            <text>Cambiar color aleatorio</text>
+            <div class="script-text">
+                local bloque = script.Parent
+
+function cambiaColor()
+    bloque.BrickColor = BrickColor.Random()
+end
+
+bloque.Touched:Connect(cambiaColor)
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Contenedor 3 -->
+        <div class="container">
+            <text>Plataforma que desaparece</text>
+            <div class="script-text">
+                local block = script.Parent
+
+function Collision()
+    block.CanTouch = false
+    block.Transparency = 0.2
+    wait(0.4)
+    block.Transparency = 0.8
+    wait(0.4)
+    block.CanCollide = false
+    wait(1)
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision)
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Contenedor 4 -->
+        <div class="container">
+            <text>Pared que te lleva fuera del laberinto</text>
+            <div class="script-text">
+                local block = script.Parent
+
+function Collision()
+    block.CanTouch = false
+    local light = Instance.new('PointLight', block)
+    block.Transparency = 0.9
+    light.Color = Color3.new(1, 0, 0)
+    light.Range = 15
+    light.Brightness = 10
+    wait(0.5)
+    block.CanCollide = false
+    light.Color = Color3.new(0, 1, 0)
+    light.Range = 25
+    light.Brightness = 20
+    wait(2)
+    light:Destroy()
+    block.CanCollide = true
+    block.CanTouch = true
+    block.Transparency = 0
+end
+
+block.Touched:Connect(Collision)
+            </div>
+            <button class="copy-btn">Copiar Script</button>
+            <p class="status"></p>
+        </div>
+
+        <!-- Ejemplo de cómo añadir un nuevo contenedor -->
+        <!-- COPIA ESTE BLOQUE Y MODIFICA EL CONTENIDO PARA AÑADIR NUEVOS CONTENEDORES -->
         <div class="container">
             <text>Nueva funcionalidad</text>
             <div class="script-text">
-                -- Escribe tu nuevo script aquí
-                print("Nuevo contenedor funcionando correctamente")
+                -- Escribe aquí el nuevo script
+                print("Nuevo script añadido")
             </div>
-            <button class="copy-btn">Copy Script</button>
+            <button class="copy-btn">Copiar Script</button>
             <p class="status"></p>
         </div>
+        <!-- FIN DE BLOQUE EJEMPLO -->
     </div>
 
     <script>
@@ -110,13 +182,13 @@ fire.Heat = 5 -- la altura de la llama
 
             // Muestra un mensaje de estado
             const status = container.querySelector('.status');
-            status.textContent = 'Script copiado!';
+            status.textContent = '¡Script copiado!';
             setTimeout(() => {
                 status.textContent = '';
             }, 2000);
         }
 
-        // Añade event listeners a todos los botones
+        // Añade eventos a todos los botones
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', () => copyScript(button));
         });
